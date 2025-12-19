@@ -1,0 +1,65 @@
+[project]
+name = "redis-study"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi[standard]>=0.125.0",
+    "python-dotenv>=1.2.1",
+    "redis>=7.1.0",
+]
+
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.3.0",
+    "pydantic-settings>=2.11.0",
+    "pytest>=8.4.2",
+    "pytest-asyncio>=1.2.0",
+    "pytest-cov>=7.0.0",
+    "httpx>=0.27.0",
+    "ruff>=0.14.0",
+    "taskipy>=1.14.1",
+]
+
+[tool.taskipy.tasks]
+format = "ruff check . --fix && ruff format ."
+lint = "ruff check . --fix"
+test = "pytest --cov -vv"
+post_test = "coverage html"
+up = "docker compose up -d"
+down = "docker compose down"
+start = "uvicorn app.main:app --reload --port 8000"
+
+[tool.ruff]
+exclude = ["tests", ".venv", "migrations/", "*.txt", "*.pyc", "*.pyo"]
+
+[tool.ruff.lint]
+select = ["E", "F", "Q", "I", "S"]
+ignore = [
+    "E501",
+    "F401",
+    "D100",
+    "D101",
+    "D102",
+    "SIM103",
+    "E701",
+    "E722",
+    "F821",
+]
+fixable = ["ALL"]
+unfixable = []
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.format]
+indent-style = "space"
+line-ending = "auto"
+
+[tool.pytest.ini_options]
+addopts = "-q --disable-warnings"
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]
+pythonpath = ["."]
+markers = ["asyncio: Mark a test as asyncio test."]
