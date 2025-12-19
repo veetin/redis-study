@@ -1,10 +1,10 @@
-import redis
+# import redis
 
-redis_connection = redis.Redis(
-    host="localhost",
-    port=6379,
-    db=0,
-)
+# redis_connection = redis.Redis(
+#     host="localhost",
+#     port=6379,
+#     db=0,
+# )
 
 # # - Registros unicos
 # ## - adicionar um dicicionario com uma unica chave e valor - {"chave_1": "valor_1"}
@@ -63,14 +63,29 @@ redis_connection = redis.Redis(
 # criando hash de hash usando chaves compostas
 # "hashes": {"hash_1:nome": "joao", "hash_1:idade": "21", 
 #            "hash_2:nome": "maria", "hash_2:idade": "22"}
-redis_connection.hset("hashes", "hash_1:nome", "joao")
-redis_connection.hset("hashes", "hash_1:idade", "21")
-redis_connection.hset("hashes", "hash_1:email", "joao@example.com")
-redis_connection.hset("hashes", "hash_2:nome", "maria")
-redis_connection.hset("hashes", "hash_2:idade", "22")
-redis_connection.hset("hashes", "hash_2:email", "maria@example.com")
+# redis_connection.hset("hashes", "hash_1:nome", "joao")
+# redis_connection.hset("hashes", "hash_1:idade", "21")
+# redis_connection.hset("hashes", "hash_1:email", "joao@example.com")
+# redis_connection.hset("hashes", "hash_2:nome", "maria")
+# redis_connection.hset("hashes", "hash_2:idade", "22")
+# redis_connection.hset("hashes", "hash_2:email", "maria@example.com")
 
-# buscar um item de um hash de hash
-nome = redis_connection.hget("hashes", "hash_1:nome")
-if nome:
-    print(nome.decode("utf-8"))
+# # buscar um item de um hash de hash
+# nome = redis_connection.hget("hashes", "hash_1:nome")
+# if nome:
+#     print(nome.decode("utf-8"))
+
+
+from app.infra.depends import get_redis_repo
+redis_repo = get_redis_repo()
+
+redis_repo.set("ola", "mundo")
+print(redis_repo.get("olas"))
+
+redis_repo.hset("hash_1", "nome", "joao")
+redis_repo.hset("hash_1", "idade", 21)
+redis_repo.hset("hash_1", "email", "joao@example.com")
+
+print(redis_repo.hget("hash_1", "nome"))
+print(redis_repo.hget("hash_1", "idade"))
+print(redis_repo.hget("hash_1", "email"))
