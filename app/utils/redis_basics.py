@@ -57,11 +57,11 @@
 # hash_existe = redis_connection.exists("hash_1") # retorna 1 se o hash existe, 0 se não existe
 # hash_1_nome_existe = redis_connection.hexists("hash_1", "nome") # retorna 1 se o item existe, 0 se não existe
 # print(hash_1_nome_existe)
-# print(chave_existe) 
-# print(hash_existe) 
+# print(chave_existe)
+# print(hash_existe)
 
 # criando hash de hash usando chaves compostas
-# "hashes": {"hash_1:nome": "joao", "hash_1:idade": "21", 
+# "hashes": {"hash_1:nome": "joao", "hash_1:idade": "21",
 #            "hash_2:nome": "maria", "hash_2:idade": "22"}
 # redis_connection.hset("hashes", "hash_1:nome", "joao")
 # redis_connection.hset("hashes", "hash_1:idade", "21")
@@ -77,6 +77,7 @@
 
 
 from app.infra.depends import get_redis_repo
+
 redis_repo = get_redis_repo()
 
 redis_repo.set("ola", "mundo")

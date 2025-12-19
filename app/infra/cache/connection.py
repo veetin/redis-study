@@ -1,5 +1,7 @@
-from configs import settings
 import redis
+
+from configs import settings
+
 
 class RedisConnection:
     def __init__(self):
@@ -15,6 +17,6 @@ class RedisConnection:
             db=self.__db,
         )
         return self.__connection
-    
+
     def get_connection(self):
         return self.__connection
